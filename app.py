@@ -10,7 +10,7 @@ def nome_programa():
 
 # Print das funcionalidades do app
 def opcoes():
-    print("1 - Cadastrar restaurante\n2 - Listar restaurante\n3 - Ativar restaurante\n4 - Sair do app")
+    print("1 - Cadastrar restaurante\n2 - Listar restaurante\n3 - Alterar Status do restaurante\n4 - Sair do app")
 
 #Funcao para cadastrar restaurantes no sistema
 def cadastrar_restaurantes():
@@ -26,15 +26,38 @@ def cadastrar_restaurantes():
     print(f"O restaurante {nome_restaurante} foi adicionado com sucesso!")
     voltar_ao_menu()
 
+
 #Funcao para listar os restaurantes
 def listar_restaurantes():
     exibir_subtitulo("Listando restaurantes\n")
 
+    print(f"{"Nome do restaurante".ljust(22)} | {"Categoria".ljust(20)} | {"Status"}")
     for restaurante in restaurantes:
+
         nome_restaurante = restaurante['nome']
         categoria = restaurante['categoria'] 
-        ativo = restaurante['ativo']  
+        ativo = 'Ativado' if restaurante['ativo'] else 'Desativado'
+
         print(f"{nome_restaurante.ljust(22)} | {categoria.ljust(20)} | {ativo}")
+    voltar_ao_menu()
+
+# Funcao para alterar o status do restaurante
+def alterar_status():
+    exibir_subtitulo("Alterando status do restaurante")
+
+    nome_restaurante = input("Digite o nome do restaurante que deseja alterar o status: ")
+    restaurante_encontrado = False
+
+    for restaurante in restaurantes:
+        if nome_restaurante == restaurante['nome']:
+            restaurante_encontrado = True
+            restaurante['ativo'] = not restaurante['ativo']
+            mensagem = (f"O restaurante {nome_restaurante} foi ativado com sucesso." 
+                    if restaurante['ativo'] 
+                    else f"O restaurante {nome_restaurante} foi desativado com sucesso.")
+            print(mensagem)
+    if not restaurante_encontrado:
+        print("O restaurante não foi encontrado.")
     voltar_ao_menu()
 
 def voltar_ao_menu():
@@ -48,7 +71,7 @@ def exibir_subtitulo(texto):
 
 # Logica para escolha da funcionalidade   
 def escolha_opcoes():
-    escolha = int(input("Escolha uma das opcoes: "))
+    escolha = int(input("\nEscolha uma das opções: "))
 
     if escolha == 1:
         cadastrar_restaurantes()
@@ -56,7 +79,7 @@ def escolha_opcoes():
         listar_restaurantes()
     elif escolha == 3:
         os.system("cls")
-        print("Ativando Restaurantes")
+        alterar_status()
     elif escolha == 4:
         os.system("cls")
         print("Saindo do app")
