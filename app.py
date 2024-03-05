@@ -1,6 +1,8 @@
 import os
 
-restaurantes = ['Pizzaria', 'Sushi']
+restaurantes = [{'nome': 'Roxy', 'categoria': 'Gourmet', 'ativo': False}, 
+                {'nome': 'Famiglia', 'categoria': 'Italiana', 'ativo': True},
+                {'nome': 'Forneria', 'categoria': 'Pizzaria', 'ativo': False}]
 
 # Abertura do app
 def nome_programa():
@@ -13,9 +15,15 @@ def opcoes():
 #Funcao para cadastrar restaurantes no sistema
 def cadastrar_restaurantes():
     exibir_subtitulo("Cadastrar restaurante")
+
     nome_restaurante = input("Digite o nome do restaurante que deseja cadastrar: ")
-    restaurantes.append(nome_restaurante)
-    print(f"O restaurante {nome_restaurante} foi adicionado com sucesso")
+    categoria_restaurante = input(f"Digite a categoria do restaurante {nome_restaurante}: ")
+    
+    dados_restaurante = {'nome': nome_restaurante, 'categoria': categoria_restaurante, 'ativo': False}
+
+    restaurantes.append(dados_restaurante)
+
+    print(f"O restaurante {nome_restaurante} foi adicionado com sucesso!")
     voltar_ao_menu()
 
 #Funcao para listar os restaurantes
@@ -23,7 +31,10 @@ def listar_restaurantes():
     exibir_subtitulo("Listando restaurantes\n")
 
     for restaurante in restaurantes:
-        print(restaurante)
+        nome_restaurante = restaurante['nome']
+        categoria = restaurante['categoria'] 
+        ativo = restaurante['ativo']  
+        print(f"{nome_restaurante.ljust(22)} | {categoria.ljust(20)} | {ativo}")
     voltar_ao_menu()
 
 def voltar_ao_menu():
