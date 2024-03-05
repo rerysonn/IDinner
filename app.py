@@ -1,5 +1,7 @@
 import os
 
+restaurantes = ['Pizzaria', 'Sushi']
+
 # Abertura do app
 def nome_programa():
     print("𝙱𝚎𝚖 𝚟𝚒𝚗𝚍𝚘 𝚊𝚘 𝙸𝙳𝚒𝚗𝚗𝚎𝚛\n")
@@ -8,19 +10,29 @@ def nome_programa():
 def opcoes():
     print("1 - Cadastrar restaurante\n2 - Listar restaurante\n3 - Ativar restaurante\n4 - Sair do app")
 
+#Funcao para cadastrar restaurantes no sistema
 def cadastrar_restaurantes():
-    os.system("cls")
-    print("Cadastro de restaurante\n")
+    exibir_subtitulo("Cadastrar restaurante")
     nome_restaurante = input("Digite o nome do restaurante que deseja cadastrar: ")
-    print(f"O restaurante {nome_restaurante} foi adicionado com sucesso\n")
-    input("Digite alguma tecla para voltar a tela inicial ")
+    restaurantes.append(nome_restaurante)
+    print(f"O restaurante {nome_restaurante} foi adicionado com sucesso")
+    voltar_ao_menu()
+
+#Funcao para listar os restaurantes
+def listar_restaurantes():
+    exibir_subtitulo("Listando restaurantes\n")
+
+    for restaurante in restaurantes:
+        print(restaurante)
     voltar_ao_menu()
 
 def voltar_ao_menu():
+    input("\nDigite alguma tecla para voltar a tela inicial ")
+    sistema()
+
+def exibir_subtitulo(texto):
     os.system("cls")
-    nome_programa()
-    opcoes()
-    escolha_opcoes()
+    print(texto)
 
 
 # Logica para escolha da funcionalidade   
@@ -30,8 +42,7 @@ def escolha_opcoes():
     if escolha == 1:
         cadastrar_restaurantes()
     elif escolha == 2:
-        os.system("cls")
-        print("Listar Restaurantes")
+        listar_restaurantes()
     elif escolha == 3:
         os.system("cls")
         print("Ativando Restaurantes")
@@ -42,6 +53,7 @@ def escolha_opcoes():
         print("\nOpção invalida")
     
 def sistema():
+    os.system("cls")
     nome_programa()
     opcoes()
     escolha_opcoes()
